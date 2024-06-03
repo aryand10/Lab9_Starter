@@ -1,3 +1,4 @@
+// Custom Error Type
 class MathError extends Error {
     constructor(message) {
       super(message);
@@ -39,7 +40,17 @@ class MathError extends Error {
   
   let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
   
-  // Start your code here
+  // Global error handler
+  window.onerror = function(message, source, lineno, colno, error) {
+    console.error(`Global error caught: ${message} at ${source}:${lineno}:${colno}`);
+    // Here you could send the error information to a server using fetch or XMLHttpRequest
+    return true; // Prevents the browser's default error handling
+  };
+  
+  errorBtns[14].addEventListener('click', () => {
+    nonExistentFunction();
+  });
+  
   errorBtns[0].addEventListener('click', () => {
     try {
       console.log('This is a console log example');
